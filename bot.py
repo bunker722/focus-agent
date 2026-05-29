@@ -107,7 +107,7 @@ def ask_claude(user_message: str, extra_context: str = "") -> str:
         full_message = f"{extra_context}\n\nСообщение пользователя: {user_message}"
 
     response = claude.messages.create(
-        model=model="claude-haiku-4-5-20251001",
+       model="claude-haiku-4-5-20251001",
         max_tokens=1000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": full_message}]
