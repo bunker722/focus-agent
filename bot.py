@@ -80,7 +80,7 @@ def get_last_output_days() -> int:
     row = con.execute("SELECT created_at FROM outputs ORDER BY id DESC LIMIT 1").fetchone()
     con.close()
     if not row:
-        return 999
+        return 30
     delta = datetime.now() - datetime.fromisoformat(row[0])
     return delta.days
 
@@ -95,7 +95,7 @@ def log_output(description: str):
 def text_to_voice(text: str) -> bytes:
     response = openai_client.audio.speech.create(
         model="tts-1",
-        voice="onyx",
+        voice="shimmer",
         input=text[:4000]
     )
     return response.content
@@ -151,7 +151,7 @@ def handle_status(message):
     if not is_allowed(message):
         return
     days = get_last_output_days()
-    if days == 999:
+    if days == 30:
         text = "Реального output ещё не было. Что выйдет первым?"
     elif days == 0:
         text = "Output сегодня. Хорошо."
